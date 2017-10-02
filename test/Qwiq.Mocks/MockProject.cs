@@ -14,7 +14,8 @@ namespace Microsoft.Qwiq.Mocks
                    uri,
                    new Lazy<IWorkItemTypeCollection>(() => wits),
                    new Lazy<INodeCollection>(() => areas),
-                   new Lazy<INodeCollection>(() => iterations))
+                   new Lazy<INodeCollection>(() => iterations),
+                   new Lazy<IQueryFolderCollection>(() => new QueryFolderCollection(Enumerable.Empty<IQueryFolder>)))
         {
         }
 
@@ -25,7 +26,8 @@ namespace Microsoft.Qwiq.Mocks
                    node.Uri,
                    new Lazy<IWorkItemTypeCollection>(() => new MockWorkItemTypeCollection(store)),
                    new Lazy<INodeCollection>(() => CreateNodes(true)),
-                   new Lazy<INodeCollection>(() => CreateNodes(false)))
+                   new Lazy<INodeCollection>(() => CreateNodes(false)),
+                   new Lazy<IQueryFolderCollection>(() => new QueryFolderCollection(Enumerable.Empty<IQueryFolder>)))
         {
         }
 

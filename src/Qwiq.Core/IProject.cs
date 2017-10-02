@@ -15,5 +15,7 @@ namespace Microsoft.Qwiq
         Uri Uri { get; }
 
         IWorkItemTypeCollection WorkItemTypes { get; }
+
+        IQueryFolderCollection QueryHierarchy { get; }
     }
 }

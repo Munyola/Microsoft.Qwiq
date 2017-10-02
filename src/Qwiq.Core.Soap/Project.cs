@@ -22,7 +22,19 @@ namespace Microsoft.Qwiq.Client.Soap
                 new Lazy<INodeCollection>(
                     () => new NodeCollection(
                         project.IterationRootNodes.Cast<Tfs.Node>()
-                               .Select(item => ExceptionHandlingDynamicProxyFactory.Create<INode>(new Node(item))))))
+                               .Select(item => ExceptionHandlingDynamicProxyFactory.Create<INode>(new Node(item))))),
+                new Lazy<IQueryFolderCollection>(
+                    () =>
+                    {
+                        return new QueryFolderCollection(
+                            () =>
+                            {
+                                return project
+                                    .QueryHierarchy
+                                    .OfType<Tfs.QueryFolder>()
+                                    .Select(qf => ExceptionHandlingDynamicProxyFactory.Create<IQueryFolder>(new QueryFolder(qf)));
+                            });
+                    }))
         {
             Id = project.Id;
         }
