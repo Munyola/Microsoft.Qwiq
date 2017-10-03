@@ -44,7 +44,7 @@ namespace Microsoft.Qwiq.Client.Rest
 
         internal static bool IsFolder([NotNull] this QueryHierarchyItem item)
         {
-            return item.IsFolder != null && item.IsFolder.Value;
+            return (item.IsFolder != null) && item.IsFolder.Value;
         }
 
         internal static bool IsExpanded([NotNull] this QueryHierarchyItem item)
