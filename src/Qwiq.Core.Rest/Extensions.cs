@@ -49,7 +49,7 @@ namespace Microsoft.Qwiq.Client.Rest
 
         internal static bool IsExpanded([NotNull] this QueryHierarchyItem item)
         {
-            return item.HasChildren.HasValue && item.HasChildren.Value && item.Children != null;
+            return item.HasChildren.HasValue && item.HasChildren.Value && (item.Children != null);
         }
     }
 }
