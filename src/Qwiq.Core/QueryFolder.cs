@@ -48,7 +48,8 @@ namespace Microsoft.Qwiq
 
         public override string ToString()
         {
-            return $"{Id} ({Name})".ToString(CultureInfo.InvariantCulture);
+            FormattableString s = $"{Id} ({Name})";
+            return s.ToString(CultureInfo.InvariantCulture);
         }
     }
 }
