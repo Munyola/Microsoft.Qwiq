@@ -42,6 +42,7 @@ namespace Microsoft.Qwiq.Client.Rest
                        : ExceptionHandlingDynamicProxyFactory.Create<IInternalTeamProjectCollection>(new VssConnectionAdapter(tfsNative));
         }
 
+        [Pure]
         internal static bool IsFolder([NotNull] this QueryHierarchyItem item)
         {
             return (item.IsFolder != null) && item.IsFolder.Value;
