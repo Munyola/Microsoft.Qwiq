@@ -1,6 +1,7 @@
 ﻿using JetBrains.Annotations;
 
 using Microsoft.Qwiq.Exceptions;
+using Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models;
 using Microsoft.VisualStudio.Services.WebApi;
 
 namespace Microsoft.Qwiq.Client.Rest
@@ -39,6 +40,16 @@ namespace Microsoft.Qwiq.Client.Rest
             return tfsNative == null
                        ? null
                        : ExceptionHandlingDynamicProxyFactory.Create<IInternalTeamProjectCollection>(new VssConnectionAdapter(tfsNative));
+        }
+
+        internal static bool IsFolder([NotNull] this QueryHierarchyItem item)
+        {
+            return item.IsFolder != null && item.IsFolder.Value;
+        }
+
+        internal static bool IsExpanded([NotNull] this QueryHierarchyItem item)
+        {
+            return item.HasChildren.HasValue && item.HasChildren.Value && item.Children != null;
         }
     }
 }
