@@ -1,11 +1,12 @@
 using System.Linq;
+using JetBrains.Annotations;
 using Microsoft.Qwiq.Exceptions;
 
 namespace Microsoft.Qwiq.Client.Soap
 {
     internal class QueryFolder : Qwiq.QueryFolder
     {
-        internal QueryFolder(TeamFoundation.WorkItemTracking.Client.QueryFolder queryFolder)
+        internal QueryFolder([NotNull] TeamFoundation.WorkItemTracking.Client.QueryFolder queryFolder)
             : base(
                 queryFolder.Id,
                 queryFolder.Name,

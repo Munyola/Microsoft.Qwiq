@@ -85,8 +85,8 @@ namespace Microsoft.Qwiq.Client.Rest
                             }
                         }
 
-                        var initialFolders = store.NativeWorkItemStore.Value.GetQueriesAsync(project.Id, QueryExpand.Wiql, MaxQueryFolderExpansionDepth);
-                        return initialFolders.Result.Select(qf => new QueryFolder(qf, FolderExpansionFunc));
+                        var initialFolders = store.NativeWorkItemStore.Value.GetQueriesAsync(project.Id, QueryExpand.Wiql, MaxQueryFolderExpansionDepth).Result;
+                        return initialFolders.Where(qf => qf != null).Select(qf => new QueryFolder(qf, FolderExpansionFunc));
                     });
                 }))
         {
