@@ -10,6 +10,7 @@ namespace Microsoft.Qwiq.Client.Rest
             : base(
                 queryFolder.Id,
                 queryFolder.Name,
+                queryFolder.Path,
                 new QueryFolderCollection(() =>
                 {
                     return
