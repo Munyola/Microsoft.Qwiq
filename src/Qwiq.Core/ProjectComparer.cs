@@ -28,8 +28,8 @@ namespace Microsoft.Qwiq
                 var hash = 27;
                 hash = (13 * hash) ^ obj.Guid.GetHashCode();
                 hash = (13 * hash) ^ (obj.Name != null ? StringComparer.OrdinalIgnoreCase.GetHashCode(obj.Name) : 0);
-                hash = (13 * hash) ^ Comparer.NodeCollection.GetHashCode(obj.AreaRootNodes);
-                hash = (13 * hash) ^ Comparer.NodeCollection.GetHashCode(obj.IterationRootNodes);
+                hash = (13 * hash) ^ Comparer.AreaOrIterationNodeCollection.GetHashCode(obj.AreaRootNodes);
+                hash = (13 * hash) ^ Comparer.AreaOrIterationNodeCollection.GetHashCode(obj.IterationRootNodes);
                 hash = (13 * hash) ^ WorkItemTypeCollectionComparer.Default.GetHashCode(obj.WorkItemTypes);
 
                 return hash;

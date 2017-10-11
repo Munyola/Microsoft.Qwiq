@@ -5,9 +5,9 @@ namespace Microsoft.Qwiq
 {
     public class Project : IProject, IEquatable<IProject>
     {
-        private readonly Lazy<INodeCollection> _area;
+        private readonly Lazy<INodeCollection<IAreaOrIteration, int>> _area;
 
-        private readonly Lazy<INodeCollection> _iteration;
+        private readonly Lazy<INodeCollection<IAreaOrIteration, int>> _iteration;
 
         private readonly Lazy<IWorkItemTypeCollection> _wits;
 
@@ -18,8 +18,8 @@ namespace Microsoft.Qwiq
             string name,
             Uri uri,
             Lazy<IWorkItemTypeCollection> wits,
-            Lazy<INodeCollection> area,
-            Lazy<INodeCollection> iteration,
+            Lazy<INodeCollection<IAreaOrIteration, int>> area,
+            Lazy<INodeCollection<IAreaOrIteration, int>> iteration,
             Lazy<IQueryFolderCollection> queryHierarchy)
         {
             Guid = guid;
@@ -35,11 +35,11 @@ namespace Microsoft.Qwiq
         {
         }
 
-        public INodeCollection AreaRootNodes => _area.Value;
+        public INodeCollection<IAreaOrIteration, int> AreaRootNodes => _area.Value;
 
         public Guid Guid { get; }
 
-        public INodeCollection IterationRootNodes => _iteration.Value;
+        public INodeCollection<IAreaOrIteration, int> IterationRootNodes => _iteration.Value;
 
         public string Name { get; }
 

@@ -1,8 +1,6 @@
-using System;
-
 namespace Microsoft.Qwiq
 {
-    public interface INodeCollection : IReadOnlyObjectWithIdCollection<INode, int>, IEquatable<INodeCollection>
+    public interface INodeCollection<T, TU> : IReadOnlyObjectWithIdCollection<INode<T, TU>, TU> where T : IIdentifiable<TU>
     {
     }
 }

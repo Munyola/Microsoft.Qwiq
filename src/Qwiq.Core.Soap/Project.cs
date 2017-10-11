@@ -15,14 +15,14 @@ namespace Microsoft.Qwiq.Client.Soap
                 project.Name,
                 project.Uri,
                 new Lazy<IWorkItemTypeCollection>(() => new WorkItemTypeCollection(project.WorkItemTypes)),
-                new Lazy<INodeCollection>(
-                    () => new NodeCollection(
+                new Lazy<INodeCollection<IAreaOrIteration, int>>(
+                    () => new NodeCollection<IAreaOrIteration, int>(
                         project.AreaRootNodes.Cast<Tfs.Node>()
-                               .Select(item => ExceptionHandlingDynamicProxyFactory.Create<INode>(new Node(item))))),
-                new Lazy<INodeCollection>(
-                    () => new NodeCollection(
+                               .Select(item => ExceptionHandlingDynamicProxyFactory.Create<INode<IAreaOrIteration, int>>(new Node(item))))),
+                new Lazy<INodeCollection<IAreaOrIteration, int>>(
+                    () => new NodeCollection<IAreaOrIteration, int>(
                         project.IterationRootNodes.Cast<Tfs.Node>()
-                               .Select(item => ExceptionHandlingDynamicProxyFactory.Create<INode>(new Node(item))))),
+                               .Select(item => ExceptionHandlingDynamicProxyFactory.Create<INode<IAreaOrIteration, int>>(new Node(item))))),
                 new Lazy<IQueryFolderCollection>(
                     () =>
                     {

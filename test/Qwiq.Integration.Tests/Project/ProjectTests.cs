@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Should;
@@ -27,8 +26,8 @@ namespace Microsoft.Qwiq.Project
         [TestCategory("REST")]
         public void Each_project_contains_the_same_Area_paths()
         {
-            RestProject.AreaRootNodes.ShouldContainOnly(SoapProject.AreaRootNodes, NodeComparer.Default);
-            RestProject.AreaRootNodes.ShouldEqual(SoapProject.AreaRootNodes, Comparer.NodeCollection);
+            RestProject.AreaRootNodes.ShouldContainOnly(SoapProject.AreaRootNodes, Comparer.AreaOrIterationNode);
+            RestProject.AreaRootNodes.ShouldEqual(SoapProject.AreaRootNodes, Comparer.AreaOrIterationNodeCollection);
             RestProject.AreaRootNodes.GetHashCode().ShouldEqual(SoapProject.AreaRootNodes.GetHashCode());
         }
 
@@ -38,8 +37,8 @@ namespace Microsoft.Qwiq.Project
         [TestCategory("REST")]
         public void Each_project_contains_the_same_Iteration_paths()
         {
-            RestProject.IterationRootNodes.ShouldContainOnly(SoapProject.IterationRootNodes, NodeComparer.Default);
-            RestProject.IterationRootNodes.ShouldEqual(SoapProject.IterationRootNodes, Comparer.NodeCollection);
+            RestProject.IterationRootNodes.ShouldContainOnly(SoapProject.IterationRootNodes, Comparer.AreaOrIterationNode);
+            RestProject.IterationRootNodes.ShouldEqual(SoapProject.IterationRootNodes, Comparer.AreaOrIterationNodeCollection);
             RestProject.IterationRootNodes.GetHashCode().ShouldEqual(SoapProject.IterationRootNodes.GetHashCode());
         }
 

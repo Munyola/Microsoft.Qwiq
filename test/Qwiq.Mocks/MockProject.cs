@@ -7,58 +7,60 @@ namespace Microsoft.Qwiq.Mocks
     {
         internal const string ProjectName = "Mock Project";
 
-        public MockProject(Guid id, string name, Uri uri, IWorkItemTypeCollection wits, INodeCollection areas, INodeCollection iterations)
+        public MockProject(Guid id, string name, Uri uri, IWorkItemTypeCollection wits, INodeCollection<IAreaOrIteration, int> areas, INodeCollection<IAreaOrIteration, int> iterations)
             : base(
                    id,
                    name,
                    uri,
                    new Lazy<IWorkItemTypeCollection>(() => wits),
-                   new Lazy<INodeCollection>(() => areas),
-                   new Lazy<INodeCollection>(() => iterations),
+                   new Lazy<INodeCollection<IAreaOrIteration, int>>(() => areas),
+                   new Lazy<INodeCollection<IAreaOrIteration, int>>(() => iterations),
                    new Lazy<IQueryFolderCollection>(() => new QueryFolderCollection(Enumerable.Empty<IQueryFolder>)))
         {
         }
 
-        public MockProject(IWorkItemStore store, INode node)
+        public MockProject(IWorkItemStore store, INode<AreaOrIteration, int> node)
             : base(
                    Guid.NewGuid(),
-                   node.Name,
-                   node.Uri,
+                   node.Value.Name,
+                   node.Value.Uri,
                    new Lazy<IWorkItemTypeCollection>(() => new MockWorkItemTypeCollection(store)),
-                   new Lazy<INodeCollection>(() => CreateNodes(true)),
-                   new Lazy<INodeCollection>(() => CreateNodes(false)),
+                   new Lazy<INodeCollection<IAreaOrIteration, int>>(() => CreateNodes(true)),
+                   new Lazy<INodeCollection<IAreaOrIteration, int>>(() => CreateNodes(false)),
                    new Lazy<IQueryFolderCollection>(() => new QueryFolderCollection(Enumerable.Empty<IQueryFolder>)))
         {
         }
 
         public MockProject(IWorkItemStore store)
-            :this(store, new Node(1, false, false, ProjectName, new Uri("http://localhost/projects/1")))
+            :this(store, new Node<AreaOrIteration, int>(new AreaOrIteration(1, false, false, ProjectName, new Uri("http://localhost/projects/1"))))
         {
         }
 
-        private static INodeCollection CreateNodes(bool area)
+        private static INodeCollection<IAreaOrIteration, int> CreateNodes(bool area)
         {
-            var root = new Node(1, area, !area, "Root", new Uri("http://localhost/nodes/1"));
-            new Node(
-                     2,
-                     area,
-                     !area,
-                     "L1",
-                     new Uri("http://localhost/nodes/2"),
-                     () => root,
-                     n => new[]
-                              {
-                                  new Node(
-                                           3,
-                                           area,
-                                           !area,
-                                           "L2",
-                                           new Uri("http://localhost/nodes/3"),
-                                           () => n,
-                                           c => Enumerable.Empty<INode>())
-                              });
+            var root = 
+                new Node<IAreaOrIteration, int>(
+                    new AreaOrIteration(1, area, !area, "Root", new Uri("http://localhost/nodes/1")));
+            new Node<IAreaOrIteration, int>(new AreaOrIteration(
+                    2,
+                    area,
+                    !area,
+                    "L1",
+                    new Uri("http://localhost/nodes/2")),
+                () => root,
+                n => new[]
+                {
+                    new Node<IAreaOrIteration, int>(new AreaOrIteration(
+                            3,
+                            area,
+                            !area,
+                            "L2",
+                            new Uri("http://localhost/nodes/3")),
+                        () => n,
+                        c => Enumerable.Empty<INode<IAreaOrIteration, int>>())
+                });
 
-            return new NodeCollection(new[] { root }.ToList().AsReadOnly());
+            return new NodeCollection<IAreaOrIteration, int>(new[] {root}.ToList().AsReadOnly());
         }
     }
 }

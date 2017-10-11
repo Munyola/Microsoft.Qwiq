@@ -32,7 +32,7 @@ namespace Microsoft.Qwiq.Client.Rest
 
                             return new WorkItemTypeCollection(wits2);
                         }),
-                new Lazy<INodeCollection>(
+                new Lazy<INodeCollection<IAreaOrIteration, int>>(
                     () =>
                         {
                             var result = store.NativeWorkItemStore
@@ -46,10 +46,10 @@ namespace Microsoft.Qwiq.Client.Rest
                                               .GetResult();
 
                             // SOAP Client does not return just the root, so return the root's children to match implementation
-                            var n = new Node(result).ChildNodes;
+                            var n = new Node(result).Children;
                             return n;
                         }),
-                new Lazy<INodeCollection>(
+                new Lazy<INodeCollection<IAreaOrIteration, int>>(
                     () =>
                         {
                             var result = store.NativeWorkItemStore
@@ -62,7 +62,7 @@ namespace Microsoft.Qwiq.Client.Rest
                                               .GetAwaiter()
                                               .GetResult();
 
-                            return new Node(result).ChildNodes;
+                            return new Node(result).Children;
                         }),
                 new Lazy<IQueryFolderCollection>(() =>
                 {

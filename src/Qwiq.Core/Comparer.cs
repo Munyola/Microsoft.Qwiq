@@ -5,6 +5,13 @@ namespace Microsoft.Qwiq
 {
     public static class Comparer
     {
+        public static IEqualityComparer<INode<IAreaOrIteration, int>> AreaOrIterationNode { get; } =
+            NodeComparer<IAreaOrIteration, int>.Default;
+
+        public static IEqualityComparer<IReadOnlyObjectWithIdCollection<INode<IAreaOrIteration, int>, int>>
+            AreaOrIterationNodeCollection { get; } =
+            ReadOnlyCollectionWithIdComparer<INode<IAreaOrIteration, int>, int>.Default;
+
         public static IEqualityComparer<IReadOnlyObjectWithIdCollection<IField, int>> FieldCollection { get; } =
             ReadOnlyCollectionWithIdComparer<IField, int>.Default;
 
@@ -16,11 +23,6 @@ namespace Microsoft.Qwiq
         public static IEqualityComparer<IIdentifiable<int>> Identifiable { get; } = IdentifiableComparer.Default;
 
         public static IEqualityComparer<IIdentityDescriptor> IdentityDescriptor { get; } = IdentityDescriptorComparer.Default;
-
-        public static IEqualityComparer<INode> Node { get; } = NodeComparer.Default;
-
-        public static IEqualityComparer<IReadOnlyObjectWithIdCollection<INode, int>> NodeCollection { get; } =
-            ReadOnlyCollectionWithIdComparer<INode, int>.Default;
 
         public static IEqualityComparer<IIdentifiable<int?>> NullableIdentity { get; } = NullableIdentifiableComparer.Default;
 

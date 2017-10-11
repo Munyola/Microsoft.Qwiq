@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics.Contracts;
 using System.Linq;
 
 using JetBrains.Annotations;
@@ -8,26 +7,27 @@ using Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models;
 
 namespace Microsoft.Qwiq.Client.Rest
 {
-    internal class Node : Qwiq.Node
+    internal class Node : Node<IAreaOrIteration, int>
     {
         internal Node([NotNull] WorkItemClassificationNode node)
             : this(node, null)
         {
         }
 
-        internal Node([NotNull] WorkItemClassificationNode node, [CanBeNull] INode parentNode)
+        internal Node([NotNull] WorkItemClassificationNode node, [CanBeNull] INode<IAreaOrIteration, int> parentNode)
             : base(
-                   node.Id,
-                   node.StructureType == TreeNodeStructureType.Area,
-                   node.StructureType == TreeNodeStructureType.Iteration,
-                   node.Name,
-                   new Uri(node.Url),
-                   () => parentNode,
-                   n => node.Children?.Any() ?? false ? node.Children.Select(s => new Node(s, n)).ToList() : Enumerable.Empty<INode>())
+                  new AreaOrIteration(
+                    node.Id,
+                    node.StructureType == TreeNodeStructureType.Area,
+                    node.StructureType == TreeNodeStructureType.Iteration,
+                    node.Name,
+                    new Uri(node.Url),
+                    new Lazy<INode<IAreaOrIteration, int>>(() => parentNode)),
+                () => parentNode,
+                n => node.Children?.Any() ?? false
+                    ? node.Children.Select(s => new Node(s, n)).ToList()
+                    : Enumerable.Empty<INode<IAreaOrIteration, int>>())
         {
-            Contract.Requires(node != null);
-            
-            if (node == null) throw new ArgumentNullException(nameof(node));
         }
     }
 }

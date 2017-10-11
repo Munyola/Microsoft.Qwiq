@@ -69,6 +69,8 @@
       <Link>Properties\ReSharper.Annotations.cs</Link>
     </Compile>
     <Compile Include="AccessDeniedException.cs" />
+    <Compile Include="AreaOrIteration.cs" />
+    <Compile Include="AreaOrIterationComparer.cs" />
     <Compile Include="BaseLinkType.cs" />
     <Compile Include="Comparer.cs" />
     <Compile Include="CoreField.cs" />
@@ -111,6 +113,7 @@
     <Compile Include="GenericComparer.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Hyperlink.cs" />
+    <Compile Include="IAreaOrIteration.cs" />
     <Compile Include="IAttachment.cs" />
     <Compile Include="ICommonStructureService.cs" />
     <Compile Include="IdentifiableComparer.cs" />
