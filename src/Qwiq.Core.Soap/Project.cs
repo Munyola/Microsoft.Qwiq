@@ -23,16 +23,16 @@ namespace Microsoft.Qwiq.Client.Soap
                     () => new NodeCollection<IAreaOrIteration, int>(
                         project.IterationRootNodes.Cast<Tfs.Node>()
                                .Select(item => ExceptionHandlingDynamicProxyFactory.Create<INode<IAreaOrIteration, int>>(new Node(item))))),
-                new Lazy<IQueryFolderCollection>(
+                new Lazy<INodeCollection<IQueryFolder, Guid>>(
                     () =>
                     {
-                        return new QueryFolderCollection(
+                        return new NodeCollection<IQueryFolder, Guid>(
                             () =>
                             {
                                 return project
                                     .QueryHierarchy
                                     .OfType<Tfs.QueryFolder>()
-                                    .Select(qf => ExceptionHandlingDynamicProxyFactory.Create<IQueryFolder>(new QueryFolder(qf)));
+                                    .Select(qf => ExceptionHandlingDynamicProxyFactory.Create<I>(new QueryFolder(qf)));
                             });
                     }))
         {

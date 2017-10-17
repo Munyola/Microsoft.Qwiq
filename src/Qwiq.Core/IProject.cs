@@ -16,6 +16,6 @@ namespace Microsoft.Qwiq
 
         IWorkItemTypeCollection WorkItemTypes { get; }
 
-        IQueryFolderCollection QueryHierarchy { get; }
+        INodeCollection<IQueryFolder, Guid> QueryFolders { get; }
     }
 }

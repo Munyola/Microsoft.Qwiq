@@ -11,7 +11,7 @@ namespace Microsoft.Qwiq
 
         private readonly Lazy<IWorkItemTypeCollection> _wits;
 
-        private readonly Lazy<IQueryFolderCollection> _queryHierarchy;
+        private readonly Lazy<INodeCollection<IQueryFolder, Guid>> _queryFolders;
 
         internal Project(
             Guid guid,
@@ -20,7 +20,7 @@ namespace Microsoft.Qwiq
             Lazy<IWorkItemTypeCollection> wits,
             Lazy<INodeCollection<IAreaOrIteration, int>> area,
             Lazy<INodeCollection<IAreaOrIteration, int>> iteration,
-            Lazy<IQueryFolderCollection> queryHierarchy)
+            Lazy<INodeCollection<IQueryFolder, Guid>> queryFolders)
         {
             Guid = guid;
             Name = name != null ? string.Intern(name) : throw new ArgumentNullException(nameof(name));
@@ -28,7 +28,7 @@ namespace Microsoft.Qwiq
             _wits = wits ?? throw new ArgumentNullException(nameof(wits));
             _area = area ?? throw new ArgumentNullException(nameof(area));
             _iteration = iteration ?? throw new ArgumentNullException(nameof(iteration));
-            _queryHierarchy = queryHierarchy ?? throw new ArgumentNullException(nameof(queryHierarchy));
+            _queryFolders = queryFolders ?? throw new ArgumentNullException(nameof(queryFolders));
         }
 
         private Project()
@@ -47,7 +47,7 @@ namespace Microsoft.Qwiq
 
         public IWorkItemTypeCollection WorkItemTypes => _wits.Value;
 
-        public IQueryFolderCollection QueryHierarchy => _queryHierarchy.Value;
+        public INodeCollection<IQueryFolder, Guid> QueryFolders => _queryFolders.Value;
 
         public override bool Equals(object obj)
         {

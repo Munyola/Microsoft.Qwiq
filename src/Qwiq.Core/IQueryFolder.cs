@@ -10,8 +10,6 @@ namespace Microsoft.Qwiq
         [NotNull]
         string Path { get; }
         [NotNull]
-        IQueryFolderCollection SubFolders { get; }
-        [NotNull]
-        IQueryDefinitionCollection SavedQueries { get; }
+        IQueryDefinitionCollection Queries { get; }
     }
 }

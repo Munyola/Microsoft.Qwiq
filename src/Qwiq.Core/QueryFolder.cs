@@ -7,7 +7,7 @@ namespace Microsoft.Qwiq
 {
     public abstract class QueryFolder : IQueryFolder
     {
-        internal QueryFolder(Guid id, [NotNull] string name, [NotNull] string path, [NotNull] IQueryFolderCollection subFolders, [NotNull] IQueryDefinitionCollection queries)
+        internal QueryFolder(Guid id, [NotNull] string name, [NotNull] string path, [NotNull] IQueryDefinitionCollection queries)
         {
             if (id == Guid.Empty)
             {
@@ -27,17 +27,14 @@ namespace Microsoft.Qwiq
             Id = id;
             Name = name;
             Path = path;
-            SubFolders = subFolders ?? throw new ArgumentNullException(nameof(subFolders));
-            SavedQueries = queries ?? throw new ArgumentNullException(nameof(queries));
+            Queries = queries ?? throw new ArgumentNullException(nameof(queries));
         }
 
         public Guid Id { get; }
         public string Name { get; }
         public string Path { get; set; }
 
-        public IQueryFolderCollection SubFolders { get; }
-
-        public IQueryDefinitionCollection SavedQueries { get; }
+        public IQueryDefinitionCollection Queries { get; }
 
         public override bool Equals(object obj)
         {
